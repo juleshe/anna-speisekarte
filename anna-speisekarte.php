@@ -21,7 +21,7 @@ define( 'ANNA_SK_CACHE_MIN', 10 );
 require_once ANNA_SK_DIR . 'includes/parser.php';
 
 /* ------------------------------------------------------------------ *
- * Automatische Updates aus GitHub (Releases mit anna-speisekarte.zip)
+ * Automatische Updates aus GitHub (github.com/juleshe/anna-speisekarte)
  * ------------------------------------------------------------------ */
 if ( file_exists( ANNA_SK_DIR . 'lib/plugin-update-checker/plugin-update-checker.php' ) ) {
 	require_once ANNA_SK_DIR . 'lib/plugin-update-checker/plugin-update-checker.php';
@@ -30,6 +30,8 @@ if ( file_exists( ANNA_SK_DIR . 'lib/plugin-update-checker/plugin-update-checker
 		__FILE__,
 		'anna-speisekarte'
 	);
+	// Version wird aus dem Plugin-Header im Branch "main" gelesen (Releases mit ZIP-Asset werden bevorzugt, falls vorhanden)
+	$GLOBALS['anna_sk_updater']->setBranch( 'main' );
 	$GLOBALS['anna_sk_updater']->getVcsApi()->enableReleaseAssets( '/anna-speisekarte\.zip($|[?&#])/i' );
 }
 

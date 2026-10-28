@@ -22,6 +22,6 @@ WordPress-Plugin für [annaimbiss.de](https://www.annaimbiss.de/speisekarte/).
 
 ## Updates
 
-Neue Versionen werden als GitHub-Release mit dem Asset `anna-speisekarte.zip` veröffentlicht. Das Plugin prüft mit [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) (MIT) und installiert Updates automatisch.
+Das Plugin prüft mit [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) (MIT) die `Version` im Header von `anna-speisekarte.php` auf dem Branch `main`. Ist sie höher als die installierte, installiert WordPress das Update automatisch. Für ein Update also: Änderung committen, Version erhöhen (Header + `ANNA_SK_VER`), auf `main` pushen.
 
 Schriften: Gilda Display, Roboto Slab, Kaushan Script (SIL OFL 1.1), Roboto (Apache 2.0) – siehe `assets/fonts/LICENSES.txt`.
