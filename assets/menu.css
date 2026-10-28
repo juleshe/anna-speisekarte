@@ -1,0 +1,180 @@
+/* Anna Imbiss – Speisekarte (Schriften lokal, keine Google-Server) */
+@font-face { font-family: "AnnaSK Gilda"; src: url(fonts/gilda-display-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "AnnaSK Slab"; src: url(fonts/roboto-slab-600.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "AnnaSK Slab"; src: url(fonts/roboto-slab-700.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "AnnaSK Sans"; src: url(fonts/roboto-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "AnnaSK Script"; src: url(fonts/kaushan-script-400.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+.anna-sk {
+  --sk-navy: #303377;
+  --sk-navy-2: #282a68;
+  --sk-yellow: #f5c92e;
+  --sk-banner: #f5d23a;
+  --sk-ink: #2b2c45;
+  --sk-text: #ffffff;
+  --sk-muted: #c3c6d8;
+  --sk-line: rgba(255, 255, 255, .15);
+  --sk-slot: 4.25rem;
+  background: linear-gradient(180deg, #3a3d86 0%, var(--sk-navy) 22rem);
+  color: var(--sk-text);
+  font-family: "AnnaSK Sans", Roboto, Arial, sans-serif;
+  border-radius: 14px;
+  padding: 1rem;
+  line-height: 1.35;
+  text-align: left;
+  box-sizing: border-box;
+}
+.anna-sk *, .anna-sk *::before, .anna-sk *::after { box-sizing: border-box; }
+.anna-sk p, .anna-sk h2, .anna-sk h3 { margin: 0; padding: 0; }
+
+/* Tabs */
+.anna-sk .anna-sk__tabs {
+  display: flex; gap: .5rem; overflow-x: auto; padding: .25rem .1rem .75rem;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.anna-sk .anna-sk__tabs::-webkit-scrollbar { display: none; }
+.anna-sk .anna-sk__tab,
+.anna-sk .anna-sk__tab:hover,
+.anna-sk .anna-sk__tab:focus {
+  flex: 0 0 auto; appearance: none; margin: 0; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px;
+  background: rgba(255, 255, 255, .06); color: #fff; box-shadow: none;
+  font: 600 .9rem/1 "AnnaSK Slab", Georgia, serif; letter-spacing: .04em; text-transform: uppercase;
+  padding: .7rem 1rem; white-space: nowrap;
+}
+.anna-sk .anna-sk__tab[aria-selected="true"] { background: var(--sk-yellow); border-color: var(--sk-yellow); color: var(--sk-ink); }
+.anna-sk .anna-sk__tab:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Speichern */
+.anna-sk .anna-sk__save { margin: 0 0 1.25rem; }
+.anna-sk .anna-sk__savebtn,
+.anna-sk .anna-sk__savebtn:hover,
+.anna-sk .anna-sk__savebtn:focus {
+  display: flex; align-items: center; justify-content: center; gap: .55rem; width: 100%;
+  appearance: none; margin: 0; cursor: pointer; border: 0; border-radius: 10px;
+  background: var(--sk-banner); color: var(--sk-ink); box-shadow: 0 3px 0 rgba(0, 0, 0, .25);
+  font: 700 1rem/1.2 "AnnaSK Slab", Georgia, serif; letter-spacing: .01em; text-transform: none;
+  padding: .95rem 1rem;
+}
+.anna-sk .anna-sk__savebtn:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0, 0, 0, .25); }
+.anna-sk .anna-sk__savebtn[disabled] { opacity: .8; cursor: progress; }
+.anna-sk .anna-sk__savebtn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.anna-sk .anna-sk__savehint { margin-top: .4rem; font-size: .8rem; color: var(--sk-muted); text-align: center; }
+
+/* ohne JavaScript: alle Tafeln untereinander, keine Tabs/Buttons */
+.anna-sk:not(.anna-sk--js) .anna-sk__tabs,
+.anna-sk:not(.anna-sk--js) .anna-sk__save { display: none; }
+.anna-sk .anna-sk__board[hidden] { display: none; }
+
+.anna-sk .anna-sk__boardtitle {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.anna-sk .anna-sk__cols { display: grid; gap: 0 2.5rem; }
+.anna-sk .anna-sk__col { min-width: 0; }
+
+/* Kategorie */
+.anna-sk .anna-sk__kat {
+  display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+  margin: 1.4rem 0 .35rem;
+}
+.anna-sk .anna-sk__col > .anna-sk__kat:first-child { margin-top: .25rem; }
+.anna-sk .anna-sk__kat--labels { justify-content: flex-end; margin-top: 1rem; }
+.anna-sk .anna-sk__kattitle {
+  display: inline-block; transform: rotate(-1deg);
+  font: 700 1rem/1.1 "AnnaSK Slab", Georgia, serif; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--sk-yellow);
+  background: rgba(150, 145, 200, .28); border: 6px solid rgba(14, 14, 42, .3); border-radius: 4px;
+  padding: .55rem 1.1rem; box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+}
+.anna-sk .anna-sk__labels { display: flex; gap: .4rem; margin-left: auto; }
+.anna-sk .anna-sk__labels > span {
+  width: var(--sk-slot); text-align: center;
+  font: 700 .8rem/1 "AnnaSK Slab", Georgia, serif; letter-spacing: .05em; color: var(--sk-yellow);
+}
+.anna-sk .anna-sk__note {
+  flex-basis: 100%; text-align: right; color: var(--sk-yellow);
+  font: 400 .95rem/1.25 "AnnaSK Gilda", Georgia, serif; letter-spacing: .03em;
+}
+
+/* Gericht */
+.anna-sk .anna-sk__item {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  padding: .7rem 0; border-bottom: 1px solid var(--sk-line);
+}
+.anna-sk .anna-sk__text { min-width: 0; }
+.anna-sk .anna-sk__name {
+  font: 400 1.15rem/1.2 "AnnaSK Gilda", Georgia, serif; letter-spacing: .06em; color: #fff;
+}
+.anna-sk .anna-sk__nr { font-size: .78em; letter-spacing: .02em; }
+.anna-sk .anna-sk__name small {
+  font: 600 .72rem/1 "AnnaSK Slab", Georgia, serif; letter-spacing: .02em; white-space: nowrap;
+}
+.anna-sk .anna-sk__desc { margin-top: .2rem; font-size: .8rem; letter-spacing: .03em; color: var(--sk-muted); }
+
+.anna-sk .anna-sk__prices { display: flex; gap: .4rem; flex: 0 0 auto; }
+.anna-sk .anna-sk__price {
+  width: var(--sk-slot); text-align: center;
+  font: 400 1.15rem/1 "AnnaSK Gilda", Georgia, serif; color: #fff; white-space: nowrap;
+  padding: .55rem 0; border-radius: 4px;
+  background: rgba(78, 78, 122, .55); border: 1px solid rgba(22, 22, 52, .35);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .14), 2px 3px 5px rgba(0, 0, 0, .3);
+}
+.anna-sk .anna-sk__price--empty { visibility: hidden; }
+.anna-sk .anna-sk__kat > .anna-sk__prices { margin-left: auto; }
+
+/* Banner, Schrift */
+.anna-sk .anna-sk__banner {
+  position: relative; margin: 1.4rem .4rem .9rem .6rem; transform: rotate(-1.2deg);
+  background: var(--sk-banner); color: var(--sk-ink);
+  font: 600 .9rem/1.3 "AnnaSK Slab", Georgia, serif; text-align: center;
+  padding: .7rem 1rem; box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
+.anna-sk .anna-sk__banner::before {
+  content: ""; position: absolute; inset: -6px 6px 6px -6px; border: 2px solid rgba(255, 255, 255, .9); pointer-events: none;
+}
+.anna-sk .anna-sk__bubble {
+  display: inline-block; margin-left: .35rem; padding: .2rem .55rem; border-radius: 999px;
+  background: var(--sk-ink); color: var(--sk-banner); font-weight: 700; white-space: nowrap;
+}
+.anna-sk .anna-sk__script {
+  margin: 1rem 0 .6rem; text-align: center; transform: rotate(-2.5deg);
+  font: 400 1.6rem/1.2 "AnnaSK Script", cursive; letter-spacing: .06em; color: #fff;
+}
+
+@media (min-width: 960px) {
+  .anna-sk { padding: 1.5rem 1.75rem 1.75rem; }
+  .anna-sk .anna-sk__save { display: flex; align-items: center; gap: 1rem; }
+  .anna-sk .anna-sk__savebtn, .anna-sk .anna-sk__savebtn:hover, .anna-sk .anna-sk__savebtn:focus { width: auto; padding: .85rem 1.4rem; }
+  .anna-sk .anna-sk__savehint { margin: 0; text-align: left; }
+  .anna-sk .anna-sk__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .anna-sk { --sk-slot: 3.9rem; }
+  .anna-sk .anna-sk__name { font-size: 1.05rem; }
+}
+
+/* Overlay */
+html.anna-sk-noscroll, html.anna-sk-noscroll body { overflow: hidden; }
+.anna-sk-ov {
+  position: fixed; inset: 0; z-index: 999999; background: rgba(12, 12, 35, .82);
+  display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 1rem;
+  font-family: "AnnaSK Sans", Roboto, Arial, sans-serif;
+}
+.anna-sk-ov__box {
+  position: relative; width: 100%; max-width: 980px; background: #303377; color: #fff;
+  border-radius: 14px; padding: 1.25rem 1rem 1rem; box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
+.anna-sk-ov .anna-sk-ov__close, .anna-sk-ov .anna-sk-ov__close:hover, .anna-sk-ov .anna-sk-ov__close:focus {
+  position: absolute; top: .5rem; right: .5rem; width: 2.5rem; height: 2.5rem; padding: 0; margin: 0;
+  border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff; font: 400 1.6rem/1 Arial, sans-serif; cursor: pointer;
+}
+.anna-sk-ov__title { margin: 0 2.5rem .35rem 0; font: 700 1.15rem/1.2 "AnnaSK Slab", Georgia, serif; color: #f5c92e; }
+.anna-sk-ov__hint { margin: 0 0 .9rem; font-size: .9rem; color: #c3c6d8; }
+.anna-sk-ov .anna-sk-ov__all, .anna-sk-ov .anna-sk-ov__all:hover, .anna-sk-ov .anna-sk-ov__all:focus {
+  width: 100%; margin: 0 0 1rem; padding: .85rem 1rem; border: 0; border-radius: 10px; cursor: pointer;
+  background: #f5d23a; color: #2b2c45; font: 700 1rem/1.2 "AnnaSK Slab", Georgia, serif; text-transform: none;
+}
+.anna-sk-ov__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.anna-sk-ov__list img { display: block; width: 100%; height: auto; border-radius: 6px; -webkit-touch-callout: default; }
+.anna-sk-ov__dl {
+  display: inline-block; margin-top: .4rem; color: #f5c92e; font: 600 .9rem/1.2 "AnnaSK Slab", Georgia, serif; text-decoration: underline;
+}
+@media (min-width: 760px) { .anna-sk-ov__list { grid-template-columns: 1fr 1fr; } .anna-sk-ov { align-items: center; } }
